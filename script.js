@@ -135,3 +135,16 @@ document.querySelectorAll(".click-animate").forEach((elemento) => {
 });
 
 atualizarCarrinho();
+
+// Hide mobile-bar with a quick animation when the cart offcanvas opens
+const offcanvasCarrinhoEl = document.getElementById("offcanvasCarrinho");
+const mobileBar = document.querySelector(".mobile-bar");
+if (offcanvasCarrinhoEl && mobileBar) {
+  offcanvasCarrinhoEl.addEventListener("show.bs.offcanvas", () => {
+    mobileBar.classList.add("mobile-bar--hidden");
+  });
+
+  offcanvasCarrinhoEl.addEventListener("hidden.bs.offcanvas", () => {
+    mobileBar.classList.remove("mobile-bar--hidden");
+  });
+}
