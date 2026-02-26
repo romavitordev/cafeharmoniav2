@@ -10,7 +10,14 @@ const toastMensagem = document.getElementById("toastMensagem");
 const toastElement = document.getElementById("addToast");
 
 const addToast = toastElement ? new bootstrap.Toast(toastElement, { delay: 1800 }) : null;
-let carrinhoItens = [];
+
+// Load cart from localStorage or initialize empty
+let carrinhoItens = JSON.parse(localStorage.getItem("carrinhoItens")) || [];
+
+// Function to save cart to localStorage
+function salvarCarrinho() {
+  localStorage.setItem("carrinhoItens", JSON.stringify(carrinhoItens));
+}
 
 function formatarMoeda(valor) {
   return valor.toFixed(2).replace(".", ",");
@@ -51,6 +58,7 @@ function atualizarCarrinho() {
   totalElemento.textContent = formatarMoeda(total);
   atualizarEstadoVazio();
   atualizarBadges();
+  salvarCarrinho();
 }
 
 function mostrarToast(mensagem) {
@@ -105,11 +113,19 @@ finalizarBtn.addEventListener("click", () => {
     return;
   }
 
-  const total = carrinhoItens.reduce((acc, item) => acc + item.preco, 0);
-  alert(`Pedido confirmado! Total: R$ ${formatarMoeda(total)}\nObrigado por escolher o Café Harmonia.`);
-  carrinhoItens = [];
-  atualizarCarrinho();
+  // Redirect to payment page
+  window.location.href = "index2.html";
 });
+
+// Function to get cart items (for payment page)
+function getCarrinhoItens() {
+  return carrinhoItens;
+}
+
+// Function to get cart total (for payment page)
+function getCarrinhoTotal() {
+  return carrinhoItens.reduce((acc, item) => acc + item.preco, 0);
+}
 
 document.querySelectorAll(".click-animate").forEach((elemento) => {
   elemento.addEventListener("click", () => {
