@@ -386,6 +386,7 @@ nav {
   border-top: 1px solid rgba(249, 243, 234, 0.16);
   box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2);
   padding: 0.6rem 0.5rem calc(0.65rem + env(safe-area-inset-bottom));
+  transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
 .mobile-link {
@@ -568,5 +569,23 @@ nav {
     opacity: 0.045;
     width: 160px;
     height: 300px;
+  }
+}
+
+/* Hidden state for mobile bar when offcanvas opens */
+.mobile-bar--hidden {
+  transform: translateY(110%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ensure cart offcanvas sits above mobile bar and its content isn't hidden on small screens */
+.offcanvas.carrinho-offcanvas {
+  z-index: 1085;
+}
+
+@media (max-width: 767.98px) {
+  .offcanvas.carrinho-offcanvas .offcanvas-body {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom) + 84px);
   }
 }
